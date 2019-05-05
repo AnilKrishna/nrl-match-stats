@@ -1,40 +1,42 @@
-package com.kayo.nrlmatchstats.matchstats.viewmodel
+package com.kayo.nrlmatchstats.playerstats.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.kayo.nrlmatchstats.matchstats.model.StatsInfo
-import com.kayo.nrlmatchstats.matchstats.repository.MatchStatsRepository
+import com.kayo.nrlmatchstats.playerstats.model.PlayerStats
+import com.kayo.nrlmatchstats.playerstats.repository.PlayerStatsRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-/**
- * ViewModel class for the top player's match statistics screen
- */
-class MatchStatsViewModel(private val repository: MatchStatsRepository, application: Application) :
-    AndroidViewModel(application) {
+class PlayerStatsViewModel(private val repository: PlayerStatsRepository, application: Application)
+    : AndroidViewModel(application) {
 
     private val viewModelJob = Job()
     private val coroutineContext: CoroutineContext
         get() = viewModelJob + Dispatchers.Main
     private val scope = CoroutineScope(coroutineContext)
 
-    val matchStatsLiveData = MutableLiveData<List<StatsInfo>>()
+    val playerInfoLiveData = MutableLiveData<PlayerStats>()
 
-    fun fetchMatchStats() {
+
+    fun fetchPlayerDetails(playerId: Int, teamId: Int) {
         scope.launch {
-            repository.getMatchStatistics()
+            repository.getPlayerStats(teamId,playerId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { it ->
-                    matchStatsLiveData.value = it
-                    it.forEach {
-                        println("MatchStat Data in ViewModel ---> $it ")
-                    }
+                    playerInfoLiveData.value = it
+                    println("PlayerStats Data in ViewModel ---> $it ")
+
                 }
         }
+
     }
 
     override fun onCleared() {

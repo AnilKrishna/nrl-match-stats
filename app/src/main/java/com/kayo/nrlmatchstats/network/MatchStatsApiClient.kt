@@ -19,7 +19,7 @@ interface MatchStatsApiClient {
 
 
     @GET("series/1/seasons/115/teams/{team-id}/players/{player-id}/detailedstats.json?userkey=${BuildConfig.USER_API_KEY}")
-    fun getPlayerStats(@Path("team-id") teamId: String, @Path("player-id") playerId: String) : Deferred<Response<MutableList<PlayerStats>>>
+    fun getPlayerStats(@Path("team-id") teamId: String, @Path("player-id") playerId: String) : Observable<PlayerStats>
 
 }
 
