@@ -4,95 +4,102 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".matchstats.view.MatchStatsActivity">
 
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="horizontal"
+                  android:gravity="center_vertical"
+                  android:background="@android:color/black">
 
-    <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtStatsType"
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtStatsType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:padding="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:text="STATS TYPE"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:srcCompat="@android:drawable/ic_menu_more"/>
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:padding="10dp"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            android:text="STATS TYPE"/>
+            android:layout_height="wrap_content">
 
-    <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+                android:id="@+id/teamA"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="8dp"
+                android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/teamANameTextView"
+                    style="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    tools:text="Team Name"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"/>
 
-            <LinearLayout
-                    android:id="@+id/teamA"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    app:layout_constraintWidth_default="percent"
-                    app:layout_constraintWidth_percent="0.5"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginStart="8dp"
-                    android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_team_one_info_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:orientation="vertical"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"/>
+        </LinearLayout>
 
-                <TextView
-                        android:id="@+id/teamANameTextView"
-                        style="@style/Base.TextAppearance.AppCompat.Subhead"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="20dp"
-                        tools:text="Team Name"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold"/>
+        <LinearLayout
+                android:id="@+id/teamB"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.5"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginStart="8dp"
+                android:orientation="vertical">
 
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_team_one_info_card"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="20dp"
-                        android:orientation="vertical"
-                        android:clipToPadding="false"
-                        android:clipChildren="false"
-                        android:nestedScrollingEnabled="false"
-                        android:overScrollMode="never"/>
-            </LinearLayout>
+            <TextView
+                    android:id="@+id/teamBNameTextView"
+                    style="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    tools:text="Team Name"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"/>
 
-            <LinearLayout
-                    android:id="@+id/teamB"
-                    android:layout_width="0dp"
-                    app:layout_constraintWidth_default="percent"
-                    app:layout_constraintWidth_percent="0.5"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:layout_marginStart="8dp"
-                    android:orientation="vertical">
-
-                <TextView
-                        android:id="@+id/teamBNameTextView"
-                        style="@style/Base.TextAppearance.AppCompat.Subhead"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="20dp"
-                        tools:text="Team Name"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_team_two_info_card"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="20dp"
-                        android:orientation="vertical"
-                        android:clipToPadding="false"
-                        android:clipChildren="false"
-                        android:nestedScrollingEnabled="false"
-                        android:overScrollMode="never"/>
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_team_two_info_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:orientation="vertical"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
