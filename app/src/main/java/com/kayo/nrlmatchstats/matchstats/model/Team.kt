@@ -1,6 +1,7 @@
 package com.kayo.nrlmatchstats.matchstats.model
 
-data class TeamB(
+
+data class Team(
     val code: String,
     val id: Int,
     val name: String,
