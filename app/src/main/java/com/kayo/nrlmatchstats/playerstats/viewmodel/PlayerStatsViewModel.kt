@@ -1,9 +1,7 @@
 package com.kayo.nrlmatchstats.playerstats.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.kayo.nrlmatchstats.matchstats.model.StatsInfo
+import androidx.lifecycle.ViewModel
 import com.kayo.nrlmatchstats.playerstats.model.PlayerStats
 import com.kayo.nrlmatchstats.playerstats.repository.PlayerStatsRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,8 +12,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class PlayerStatsViewModel(private val repository: PlayerStatsRepository, application: Application)
-    : AndroidViewModel(application) {
+class PlayerStatsViewModel(private val repository: PlayerStatsRepository)
+    : ViewModel() {
 
     private val viewModelJob = Job()
     private val coroutineContext: CoroutineContext
@@ -30,10 +28,12 @@ class PlayerStatsViewModel(private val repository: PlayerStatsRepository, applic
             repository.getPlayerStats(teamId,playerId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError { error ->
+                    println("PlayerStats Data retrieve Error in ViewModel ---> ${error.message} ")
+                }
                 .subscribe { it ->
                     playerInfoLiveData.value = it
                     println("PlayerStats Data in ViewModel ---> $it ")
-
                 }
         }
 

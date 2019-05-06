@@ -19,13 +19,13 @@ import org.koin.dsl.module
 val MatchStatsAppModule  = module {
 
     // MatchStatsViewModel Injection
-    viewModel { MatchStatsViewModel(get(), androidApplication()) }
+    viewModel { MatchStatsViewModel(get()) }
 
     // single instance of MatchStatsRepository
     single<MatchStatsRepository> { MatchStatsRepositoryImpl() }
 
     // PlayerStatsViewModel Injection
-    viewModel { PlayerStatsViewModel(get(), androidApplication()) }
+    viewModel { PlayerStatsViewModel(get()) }
 
     // single instance of PlayerStatsRepository
     single<PlayerStatsRepository> { PlayerStatsRepositoryImpl() }

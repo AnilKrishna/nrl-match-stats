@@ -12,7 +12,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 object MatchStatsApiAccess {
 
     val matchStatsApi : MatchStatsApiClient by lazy {
-        Log.d("WebAccess", "Creating retrofit client")
+        //Log.d("WebAccess", "Creating retrofit client")
 
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
