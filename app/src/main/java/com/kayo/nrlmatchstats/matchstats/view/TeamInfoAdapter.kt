@@ -24,6 +24,9 @@ class TeamInfoAdapter(private val teamInfo: List<Team>) : RecyclerView.Adapter<T
         return teamInfo.size
     }
 
+    override fun getItemId(position: Int) = position.toLong()
+    override fun getItemViewType(position: Int) = position
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val team = teamInfo[position]
         holder.textViewName.text = team.name

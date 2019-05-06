@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,16 +28,18 @@ class StatsInfoAdapter(private val statsInfo: List<StatsInfo>)  : RecyclerView.A
         return statsInfo.size
     }
 
+    override fun getItemId(position: Int) = position.toLong()
+    override fun getItemViewType(position: Int) = position
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val stats = statsInfo[position]
         val teamAList = ArrayList<Team>()
         val teamBList = ArrayList<Team>()
-        statsInfo.forEach {
-            teamAList.add(it.team_A)
-            teamBList.add(it.team_B)
-        }
 
-        holder.textViewStatsName.text = stats.stat_type
+        teamAList.add(stats.team_A)
+        teamBList.add(stats.team_B)
+
+        holder.textViewStatsName.text = stats.stat_type.capitalize()
 
         val teamOneChildLayoutManager = LinearLayoutManager(holder.teamOneRecyclerView.context, RecyclerView.VERTICAL, false)
         val teamTwoChildLayoutManager = LinearLayoutManager(holder.teamTwoRecyclerView.context, RecyclerView.VERTICAL, false)
@@ -58,14 +61,13 @@ class StatsInfoAdapter(private val statsInfo: List<StatsInfo>)  : RecyclerView.A
     }
 
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        private var context: Context? = null
-
         val textViewStatsName : TextView = itemView.txtStatsType
+        val imgStatsMore : ImageView = itemView.imgArrow
         val teamOneRecyclerView : RecyclerView = itemView.rv_team_one_info_card as RecyclerView
         val teamTwoRecyclerView : RecyclerView = itemView.rv_team_two_info_card as RecyclerView
 
         override fun onClick(view: View?) {
-            if (view?.id == R.id.txtStatsType) {
+            if (view?.id == R.id.imgArrow) {
                 if (teamOneRecyclerView.visibility == View.VISIBLE
                     && teamTwoRecyclerView.visibility == View.VISIBLE) {
                     teamOneRecyclerView.visibility = View.GONE
@@ -78,13 +80,12 @@ class StatsInfoAdapter(private val statsInfo: List<StatsInfo>)  : RecyclerView.A
         }
 
         fun toggleExpand() {
-            context = itemView.context
             teamOneRecyclerView.visibility = View.GONE
             teamTwoRecyclerView.visibility = View.GONE
 
-            val intMaxNoOfChild = 5
+            val intMaxNoOfChild = statsInfo.size
 
-            textViewStatsName.setOnClickListener(this)
+            imgStatsMore.setOnClickListener(this)
 
             val noOfChildViews = teamOneRecyclerView.childCount
 

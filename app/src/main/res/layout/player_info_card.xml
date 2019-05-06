@@ -7,12 +7,11 @@
         xmlns:tools="http://schemas.android.com/tools"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
-        android:layout_marginBottom="10dp">
+        android:layout_margin="10dp">
 
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -20,53 +19,60 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
-                tools:srcCompat="@mipmap/ic_launcher" />
+                tools:srcCompat="@mipmap/ic_launcher_any" />
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/playerNameTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_below="@+id/profileImageView"
                 android:layout_centerHorizontal="true"
+                android:gravity="center"
                 android:paddingTop="5dp"
                 android:text="Name"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
-                tools:textSize="15sp"
+                tools:textSize="18sp"
                 tools:text="Name"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/jumperTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/playerNameTextView"
                 android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:paddingTop="5dp"
                 android:text="Jumper"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
-                tools:textSize="12sp"/>
+                tools:textSize="15sp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/positionTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/jumperTextView"
                 android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:paddingTop="5dp"
                 android:text="Position"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
-                tools:textSize="12sp"/>
+                tools:textSize="15sp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/statValueTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/positionTextView"
                 android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:paddingTop="5dp"
                 android:text="Stat Value"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
-                tools:textSize="12sp"/>
+                tools:textSize="15sp"/>
 </RelativeLayout>
 </androidx.cardview.widget.CardView>

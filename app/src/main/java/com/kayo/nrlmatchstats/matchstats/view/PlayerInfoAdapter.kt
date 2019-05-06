@@ -1,6 +1,5 @@
 package com.kayo.nrlmatchstats.matchstats.view
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,13 +23,16 @@ class PlayerInfoAdapter(private val playerInfo: List<TopPlayer>, private val cli
         return playerInfo.size
     }
 
+    override fun getItemId(position: Int) = position.toLong()
+    override fun getItemViewType(position: Int) = position
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val player = playerInfo[position]
         Glide.with(holder.itemView.context)
             .load("http://media.foxsports.com.au/match-centre/includes/images/headshots/nrl/${player.id}.jpg")
             .placeholder(R.drawable.player_headshot_blank_large)
             .into(holder.imageView)
-        //holder.imageView.setImageResource(R.mipmap.ic_launcher)
+
         holder.textViewName.text = player.short_name
         holder.textViewJumper.text = player.jumper_number.toString()
         holder.textViewPosition.text  = player.position
