@@ -38,10 +38,10 @@
                     android:id="@+id/imgArrow"
                     android:layout_width="150dp"
                     android:layout_height="75dp"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:layout_gravity="end|center"
                     android:layout_weight=".01"
-                    app:srcCompat="@android:drawable/ic_menu_more"/>
+                    app:srcCompat="@drawable/ic_down_arrow"/>
         </LinearLayout>
 
 

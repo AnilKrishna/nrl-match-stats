@@ -72,9 +72,11 @@ class StatsInfoAdapter(private val statsInfo: List<StatsInfo>)  : RecyclerView.A
                     && teamTwoRecyclerView.visibility == View.VISIBLE) {
                     teamOneRecyclerView.visibility = View.GONE
                     teamTwoRecyclerView.visibility = View.GONE
+                    imgStatsMore.setImageResource(R.drawable.ic_down_arrow)
                 } else {
                     teamOneRecyclerView.visibility = View.VISIBLE
                     teamTwoRecyclerView.visibility = View.VISIBLE
+                    imgStatsMore.setImageResource(R.drawable.ic_up_arrow)
                 }
             }
         }

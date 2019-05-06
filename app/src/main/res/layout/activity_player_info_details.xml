@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
 <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/playerInfoLayoutCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +29,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/playerNameTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_below="@+id/profileImageView"
@@ -34,30 +38,34 @@
                 android:text="Name"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
-                tools:textSize="35sp"
+                android:textSize="25sp"
                 tools:text="Full Name"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/positionTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/playerNameTextView"
                 android:layout_centerHorizontal="true"
+                android:paddingTop="5dp"
+                android:layout_marginStart="8dp"
                 android:text="Position"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
-                tools:textSize="22sp"/>
+                android:textSize="22sp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/statValueTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/positionTextView"
                 android:layout_centerHorizontal="true"
-                android:text="Last Match Stats : "
+                android:paddingTop="5dp"
+                android:layout_marginStart="8dp"
+                android:text="Player Stats : "
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
-                tools:textSize="18sp"/>
+                android:textSize="18sp"/>
 
         <LinearLayout
                 android:id="@+id/lastMatchStats"
@@ -65,9 +73,233 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/statValueTextView"
                 android:layout_centerHorizontal="true"
+                android:paddingTop="5dp"
+                android:layout_marginStart="8dp"
                 android:orientation="vertical">
 
-        </LinearLayout>
+            <TableLayout
+                    android:id="@+id/tableLayout1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0,1">
 
+                <TableRow
+                        android:id="@+id/tableRowGames"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                    <TextView
+                            android:id="@+id/textViewGamesTitle"
+                            android:layout_column="0"
+                            android:text="Games"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+
+                    <TextView
+                            android:id="@+id/textViewGames"
+                            android:layout_column="1"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+                </TableRow>
+
+                <TableRow
+                        android:id="@+id/tableRowTries"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                    <TextView
+                            android:id="@+id/textViewTriesTitle"
+                            android:layout_column="0"
+                            android:text="Tries"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+
+                    <TextView
+                            android:id="@+id/textViewTries"
+                            android:layout_column="1"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+                </TableRow>
+
+                <TableRow
+                        android:id="@+id/tableRowPoints"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                    <TextView
+                            android:id="@+id/textViewPointsTitle"
+                            android:layout_column="0"
+                            android:text="Points"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+
+                    <TextView
+                            android:id="@+id/textViewPoints"
+                            android:layout_column="1"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+                </TableRow>
+
+                <TableRow
+                        android:id="@+id/tableRowWinPercent"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                    <TextView
+                            android:id="@+id/textViewWinPercentTitle"
+                            android:layout_column="0"
+                            android:text="Win Percentage"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+
+                    <TextView
+                            android:id="@+id/textViewWinPercent"
+                            android:layout_column="1"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+                </TableRow>
+
+                <TableRow
+                        android:id="@+id/tableRowErrors"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                    <TextView
+                            android:id="@+id/textViewErrorsTitle"
+                            android:layout_column="0"
+                            android:text="Errors"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+
+                    <TextView
+                            android:id="@+id/textViewErrors"
+                            android:layout_column="1"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+                </TableRow>
+
+                <TableRow
+                        android:id="@+id/tableRowMinsPlayed"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                    <TextView
+                            android:id="@+id/textViewMinsPlayedTitle"
+                            android:layout_column="0"
+                            android:text="Mins Played"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+
+                    <TextView
+                            android:id="@+id/textViewMinsPlayed"
+                            android:layout_column="1"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+                </TableRow>
+
+                <TableRow
+                        android:id="@+id/tableRowFantPoints"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                    <TextView
+                            android:id="@+id/textViewFantPointsTitle"
+                            android:layout_column="0"
+                            android:text="Fantasy Points"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+
+                    <TextView
+                            android:id="@+id/textViewFantPoints"
+                            android:layout_column="1"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+                </TableRow>
+
+                <TableRow
+                        android:id="@+id/tableRowKicksMeter"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                    <TextView
+                            android:id="@+id/textView1KicksMeterTitle"
+                            android:layout_column="0"
+                            android:text="Kicks Meter"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+
+                    <TextView
+                            android:id="@+id/textViewKicksMeter"
+                            android:layout_column="1"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+                </TableRow>
+
+                <TableRow
+                        android:id="@+id/tableRowKicks"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                    <TextView
+                            android:id="@+id/textViewKicksTitle"
+                            android:layout_column="0"
+                            android:text="Kicks"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+
+                    <TextView
+                            android:id="@+id/textViewKicks"
+                            android:layout_column="1"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="18sp">
+                    </TextView>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
+</ScrollView>

@@ -34,29 +34,78 @@ class PlayerStatsActivity :  AppCompatActivity() {
             .into(profileImageView)
         positionTextView.text = playerStats.position
 
-        val tv_error = TextView(this)
-        tv_error.textSize = 20f
-        tv_error.text = "Errors -->" + playerStats.last_match_stats.errors
-        lastMatchStats.addView(tv_error)
+        //games
+        If(playerStats.career_stats.games) {
+            val games = playerStats.career_stats.games.toString()
+            textViewGames.text = games
+        } Else {
+            textViewGames.text = "Not Available"
+        }
 
-        val tv_mins_played = TextView(this)
-        tv_mins_played.textSize = 20f
-        tv_mins_played.text = "Mins Played -->" + playerStats.last_match_stats.mins_played
-        lastMatchStats.addView(tv_mins_played)
+        //tries
+        If(playerStats.career_stats.tries) {
+            val tries = playerStats.career_stats.tries.toString()
+            textViewTries.text = tries
+        } Else {
+            textViewTries.text = "Not Available"
+        }
 
-        val tv_fantasy_points = TextView(this)
-        tv_fantasy_points.textSize = 20f
-        tv_fantasy_points.text = "Fantasy Points -->" + playerStats.last_match_stats.fantasy_points
-        lastMatchStats.addView(tv_fantasy_points)
+        //points
+        If(playerStats.career_stats.points) {
+            val points = playerStats.career_stats.points.toString()
+            textViewPoints.text = points
+        } Else {
+            textViewPoints.text = "Not Available"
+        }
 
-        val tv_kick_meters = TextView(this)
-        tv_kick_meters.textSize = 20f
-        tv_kick_meters.text = "Kick Meters -->" + playerStats.last_match_stats.kick_metres
-        lastMatchStats.addView(tv_kick_meters)
+        //win_percentages
+        If(playerStats.career_stats.win_percentage) {
+            val winPercentage = playerStats.career_stats.win_percentage.toString()
+            textViewWinPercent.text = winPercentage
+        } Else {
+            textViewWinPercent.text = "Not Available"
+        }
 
-        val tv_kicks = TextView(this)
-        tv_kicks.textSize = 20f
-        tv_kicks.text = "Kicks -->" + playerStats.last_match_stats.kicks
-        lastMatchStats.addView(tv_kicks)
+        If(playerStats.last_match_stats.errors) {
+            val errors = playerStats.last_match_stats.errors.toString()
+            textViewErrors.text = errors
+        } Else {
+            textViewErrors.text = "Not Available"
+        }
+
+        If(playerStats.last_match_stats.fantasy_points) {
+            val fantasyPoints = playerStats.last_match_stats.fantasy_points.toString()
+            textViewFantPoints.text = fantasyPoints
+        } Else {
+            textViewFantPoints.text = "Not Available"
+        }
+
+        If(playerStats.last_match_stats.kicks) {
+            val kicks = playerStats.last_match_stats.kicks.toString()
+            textViewKicks.text = kicks
+        } Else {
+            textViewKicks.text = "Not Available"
+        }
+
+        If(playerStats.last_match_stats.kick_metres) {
+            val kickMeters = playerStats.last_match_stats.kick_metres.toString()
+            textViewKicksMeter.text  = kickMeters
+        } Else {
+            textViewKicksMeter.text = "Not Available"
+        }
+
+        If(playerStats.last_match_stats.mins_played) {
+            val minsPlayed = playerStats.last_match_stats.mins_played.toString()
+            textViewMinsPlayed.text = minsPlayed
+        } Else {
+            textViewMinsPlayed.text = "Not Available"
+        }
+    }
+
+    inner class If<T>(val any: T?, private val i: (T) -> Unit) {
+        infix fun Else(e: () -> Unit) {
+            if (any == null) e()
+            else i(any)
+        }
     }
 }
