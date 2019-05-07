@@ -60,13 +60,15 @@
                     android:orientation="vertical"
                     tools:ignore="MissingConstraints">
 
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_team_one_info_card"
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_team_one_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:clipToPadding="false"
-                        android:clipChildren="false"/>
+                        android:textSize="22sp"
+                        android:text="TEAM A"
+                        android:gravity="center"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"/>
             </LinearLayout>
 
             <LinearLayout
@@ -81,14 +83,24 @@
                     android:orientation="vertical"
                     tools:ignore="MissingConstraints">
 
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_team_two_info_card"
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_team_two_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:clipToPadding="false"
-                        android:clipChildren="false"/>
+                        android:textSize="22sp"
+                        android:text="TEAM B"
+                        android:gravity="center"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_player_info_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:clipToPadding="false"
+                android:clipChildren="false"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

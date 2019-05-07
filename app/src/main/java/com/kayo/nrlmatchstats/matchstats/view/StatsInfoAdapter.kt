@@ -5,20 +5,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kayo.nrlmatchstats.R
 import com.kayo.nrlmatchstats.matchstats.model.StatsInfo
-import com.kayo.nrlmatchstats.matchstats.model.Team
+import com.kayo.nrlmatchstats.matchstats.model.TopPlayer
+import kotlinx.android.synthetic.main.stats_info_recycler.view.imgArrow
+import kotlinx.android.synthetic.main.stats_info_recycler.view.txtStatsType
 import kotlinx.android.synthetic.main.stats_info_recycler.view.*
 
-class StatsInfoAdapter(private val statsInfo: List<StatsInfo>)  : RecyclerView.Adapter<StatsInfoAdapter.ViewHolder>() {
+class StatsInfoAdapter(private val statsInfo: List<StatsInfo>) :
+    RecyclerView.Adapter<StatsInfoAdapter.ViewHolder>() {
 
     private val viewPool = RecyclerView.RecycledViewPool()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v =  LayoutInflater.from(parent.context)
-            .inflate(R.layout.stats_info_recycler,parent,false)
+        val v = LayoutInflater.from(parent.context)
+            .inflate(R.layout.stats_info_recycler, parent, false)
         return ViewHolder(v)
     }
 
@@ -31,26 +34,41 @@ class StatsInfoAdapter(private val statsInfo: List<StatsInfo>)  : RecyclerView.A
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val stats = statsInfo[position]
-        val teamAList = ArrayList<Team>()
-        val teamBList = ArrayList<Team>()
 
-        teamAList.add(stats.team_A)
-        teamBList.add(stats.team_B)
+        // Assuming the sizes of the top players lists from both the teams are always equal
+        val mergedTopPlayerArraySize = stats.team_A.top_players.size * 2
+        val topPlayerArray = Array(mergedTopPlayerArraySize)
+            { TopPlayer(0, "", 0, 0, "", "", 0) }
+        var mergedTopPlayerArrayIndex = 0
 
-        holder.textViewStatsName.text = stats.stat_type.capitalize()
+        for (i in 0 until stats.team_A.top_players.size) {
+            // Team A for Left Grid
+            topPlayerArray[mergedTopPlayerArrayIndex] = stats.team_A.top_players[i]
+            topPlayerArray[mergedTopPlayerArrayIndex].teamId = stats.team_A.id
+            mergedTopPlayerArrayIndex++
 
-        val teamOneChildLayoutManager = LinearLayoutManager(holder.teamOneRecyclerView.context, RecyclerView.VERTICAL, false)
-        val teamTwoChildLayoutManager = LinearLayoutManager(holder.teamTwoRecyclerView.context, RecyclerView.VERTICAL, false)
-
-        holder.teamOneRecyclerView.apply {
-            layoutManager = teamOneChildLayoutManager
-            adapter = TeamInfoAdapter(teamAList)
-            setRecycledViewPool(viewPool)
+            // Team B for Right Grid
+            topPlayerArray[mergedTopPlayerArrayIndex] = stats.team_B.top_players[i]
+            topPlayerArray[mergedTopPlayerArrayIndex].teamId = stats.team_B.id
+            mergedTopPlayerArrayIndex++
         }
 
-        holder.teamTwoRecyclerView.apply {
-            layoutManager = teamTwoChildLayoutManager
-            adapter = TeamInfoAdapter(teamBList)
+        val combinedTopPlayersList = topPlayerArray.toList()
+
+        val playerInfoLayoutManager =
+            GridLayoutManager(holder.playerInfoRecyclerView.context, 2, RecyclerView.VERTICAL, false)
+
+        holder.textViewStatsName.text = stats.stat_type.capitalize()
+        holder.teamOneName.text = stats.team_A.name
+        holder.teamTwoName.text = stats.team_B.name
+        holder.playerInfoRecyclerView.apply {
+            layoutManager = playerInfoLayoutManager
+            adapter = PlayerInfoAdapter(combinedTopPlayersList) {
+                (context as MatchStatsActivity).playerInfoDetails(
+                    it.id,
+                    it.teamId
+                )
+            }
             setRecycledViewPool(viewPool)
         }
 
@@ -58,44 +76,42 @@ class StatsInfoAdapter(private val statsInfo: List<StatsInfo>)  : RecyclerView.A
 
     }
 
-    inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        val textViewStatsName : TextView = itemView.txtStatsType
-        val imgStatsMore : ImageView = itemView.imgArrow
-        val teamOneRecyclerView : RecyclerView = itemView.rv_team_one_info_card as RecyclerView
-        val teamTwoRecyclerView : RecyclerView = itemView.rv_team_two_info_card as RecyclerView
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        val textViewStatsName: TextView = itemView.txtStatsType
+        private val imgStatsMore: ImageView = itemView.imgArrow
+        val playerInfoRecyclerView: RecyclerView = itemView.rv_player_info_details
+        val teamOneName: TextView = itemView.tv_team_one_title
+        val teamTwoName: TextView = itemView.tv_team_two_title
 
         override fun onClick(view: View?) {
             if (view?.id == R.id.imgArrow) {
-                if (teamOneRecyclerView.visibility == View.VISIBLE
-                    && teamTwoRecyclerView.visibility == View.VISIBLE) {
-                    teamOneRecyclerView.visibility = View.GONE
-                    teamTwoRecyclerView.visibility = View.GONE
+                if (playerInfoRecyclerView.visibility == View.VISIBLE) {
+                    playerInfoRecyclerView.visibility = View.GONE
+                    teamOneName.visibility = View.GONE
+                    teamTwoName.visibility = View.GONE
                     imgStatsMore.setImageResource(R.drawable.ic_down_arrow)
                 } else {
-                    teamOneRecyclerView.visibility = View.VISIBLE
-                    teamTwoRecyclerView.visibility = View.VISIBLE
+                    playerInfoRecyclerView.visibility = View.VISIBLE
+                    teamOneName.visibility = View.VISIBLE
+                    teamTwoName.visibility = View.VISIBLE
                     imgStatsMore.setImageResource(R.drawable.ic_up_arrow)
                 }
             }
         }
 
         fun toggleExpand() {
-            teamOneRecyclerView.visibility = View.GONE
-            teamTwoRecyclerView.visibility = View.GONE
+            imgStatsMore.setOnClickListener(this)
+            playerInfoRecyclerView.visibility = View.GONE
+            teamOneName.visibility = View.GONE
+            teamTwoName.visibility = View.GONE
 
             val intMaxNoOfChild = statsInfo.size
-
-            imgStatsMore.setOnClickListener(this)
-
-            val noOfChildViews = teamOneRecyclerView.childCount
+            val noOfChildViews = playerInfoRecyclerView.childCount
 
             if (intMaxNoOfChild < noOfChildViews) {
                 for (index in intMaxNoOfChild until noOfChildViews) {
-                    val currentView1 = teamOneRecyclerView.getChildAt(index)
-                    currentView1.visibility = View.GONE
-
-                    val currentView2 = teamTwoRecyclerView.getChildAt(index)
-                    currentView2.visibility = View.GONE
+                    val playerInfoCard = playerInfoRecyclerView.getChildAt(index)
+                    playerInfoCard.visibility = View.GONE
                 }
             }
         }

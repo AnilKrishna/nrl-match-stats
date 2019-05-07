@@ -3,13 +3,10 @@ package com.kayo.nrlmatchstats.matchstats.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kayo.nrlmatchstats.R
-import com.kayo.nrlmatchstats.matchstats.model.Team
-import com.kayo.nrlmatchstats.matchstats.model.TopPlayer
 import com.kayo.nrlmatchstats.matchstats.viewmodel.MatchStatsViewModel
 import com.kayo.nrlmatchstats.playerstats.view.PlayerStatsActivity
 import kotlinx.android.synthetic.main.activity_match_stats.*
