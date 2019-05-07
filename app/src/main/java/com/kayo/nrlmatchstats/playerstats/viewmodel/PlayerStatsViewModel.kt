@@ -17,7 +17,7 @@ class PlayerStatsViewModel(private val repository: PlayerStatsRepository)
 
     private val viewModelJob = Job()
     private val coroutineContext: CoroutineContext
-        get() = viewModelJob + Dispatchers.Main
+        get() = viewModelJob + Dispatchers.IO
     private val scope = CoroutineScope(coroutineContext)
 
     val playerInfoLiveData = MutableLiveData<PlayerStats>()

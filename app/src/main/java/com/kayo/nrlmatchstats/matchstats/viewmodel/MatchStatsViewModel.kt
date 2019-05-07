@@ -17,7 +17,8 @@ class MatchStatsViewModel(private val repository: MatchStatsRepository) :
 
     private val viewModelJob = Job()
     private val coroutineContext: CoroutineContext
-        get() = viewModelJob + Dispatchers.Main
+        get() = viewModelJob + Dispatchers.IO
+
     private val scope = CoroutineScope(coroutineContext)
 
     val matchStatsLiveData = MutableLiveData<List<StatsInfo>>()
